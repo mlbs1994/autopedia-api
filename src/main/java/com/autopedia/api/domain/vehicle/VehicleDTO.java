@@ -1,7 +1,7 @@
-package com.autopedia.api.vehicle;
+package com.autopedia.api.domain.vehicle;
 
-import com.autopedia.api.category.CategoryDTO;
-import com.autopedia.api.manufacturer.ManufacturerDTO;
+import com.autopedia.api.domain.category.CategoryDTO;
+import com.autopedia.api.domain.manufacturer.ManufacturerDTO;
 
 public class VehicleDTO {
 

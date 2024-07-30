@@ -1,4 +1,4 @@
-package com.autopedia.api.vehicle;
+package com.autopedia.api.domain.vehicle;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

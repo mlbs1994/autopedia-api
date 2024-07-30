@@ -1,9 +1,9 @@
-package com.autopedia.api.vehicle;
+package com.autopedia.api.domain.vehicle;
 
 import jakarta.persistence.*;
 
-import com.autopedia.api.category.Category;
-import com.autopedia.api.manufacturer.Manufacturer;
+import com.autopedia.api.domain.category.Category;
+import com.autopedia.api.domain.manufacturer.Manufacturer;
 
 @Table(name = "vehicle")
 @Entity(name = "Vehicle")

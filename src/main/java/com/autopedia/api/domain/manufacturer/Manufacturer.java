@@ -1,25 +1,23 @@
-package com.autopedia.api.category;
+package com.autopedia.api.domain.manufacturer;
 
 import jakarta.persistence.*;
 
-@Table(name = "category")
-@Entity(name = "Category")
-public class Category {
+@Table(name = "manufacturer")
+@Entity(name = "Manufacturer")
+public class Manufacturer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String name;
-	private String description;
 
-	public Category() {
+	public Manufacturer() {
 	}
 
-	public Category(CategoryDTO data) {
+	public Manufacturer(ManufacturerDTO data) {
 		this.id = data.getId();
 		this.name = data.getName();
-		this.description = data.getDescription();
 	}
 
 	public Integer getId() {
@@ -36,14 +34,6 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 }

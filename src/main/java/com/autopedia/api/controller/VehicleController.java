@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.autopedia.api.vehicle.Vehicle;
-import com.autopedia.api.vehicle.VehicleDTO;
-import com.autopedia.api.vehicle.VehicleRepository;
-import com.autopedia.api.vehicle.VehicleSummaryDTO;
-import com.autopedia.api.vehicle.VehicleUpdateDTO;
+import com.autopedia.api.domain.vehicle.Vehicle;
+import com.autopedia.api.domain.vehicle.VehicleDTO;
+import com.autopedia.api.domain.vehicle.VehicleRepository;
+import com.autopedia.api.domain.vehicle.VehicleSummaryDTO;
+import com.autopedia.api.domain.vehicle.VehicleUpdateDTO;
 
 @RestController
 @RequestMapping("/vehicles")
@@ -32,7 +32,7 @@ public class VehicleController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<VehicleDTO> detail(@PathVariable Integer id) {
-		Vehicle vehicle = vehicleRepository.findById(id).get();
+		Vehicle vehicle = vehicleRepository.getReferenceById(id);
 		return ResponseEntity.ok(new VehicleDTO(vehicle));
 	}
 	

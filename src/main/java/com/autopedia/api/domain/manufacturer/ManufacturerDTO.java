@@ -1,4 +1,4 @@
-package com.autopedia.api.manufacturer;
+package com.autopedia.api.domain.manufacturer;
 
 public class ManufacturerDTO {
 

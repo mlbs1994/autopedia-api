@@ -1,4 +1,4 @@
-package com.autopedia.api.category;
+package com.autopedia.api.domain.category;
 
 public class CategoryDTO {
 
