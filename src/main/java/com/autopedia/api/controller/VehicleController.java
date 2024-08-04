@@ -1,10 +1,10 @@
 package com.autopedia.api.controller;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,14 +39,14 @@ public class VehicleController {
 	}
 	
 	@GetMapping("summary")
-	public ResponseEntity<List<VehicleSummaryDTO>> summaryList() {
-		List<VehicleSummaryDTO> vehiclesSummarized = vehicleRepository.findAll().stream().map(VehicleSummaryDTO::new).collect(Collectors.toList());
+	public ResponseEntity<Page<VehicleSummaryDTO>> summaryList(Pageable pagination) {
+		Page<VehicleSummaryDTO> vehiclesSummarized = vehicleRepository.findAll(pagination).map(VehicleSummaryDTO::new);
 		return ResponseEntity.ok(vehiclesSummarized);
 	}
 	
 	@GetMapping("list")
-	public ResponseEntity<List<VehicleDTO>> list() {
-		List<VehicleDTO> vehiclesList = vehicleRepository.findAll().stream().map(VehicleDTO::new).collect(Collectors.toList());
+	public ResponseEntity<Page<VehicleDTO>> list(Pageable pagination) {
+		Page<VehicleDTO> vehiclesList = vehicleRepository.findAll(pagination).map(VehicleDTO::new);
 		return ResponseEntity.ok(vehiclesList);		
 	}
 	
