@@ -3,17 +3,34 @@ package com.autopedia.api.domain.vehicle;
 import com.autopedia.api.domain.category.CategoryDTO;
 import com.autopedia.api.domain.manufacturer.ManufacturerDTO;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+
 public class VehicleDTO {
 
 	private Integer id;
+
+	@NotBlank(message = "{not.blank.message}")
 	private String model;
+
+	@NotNull(message = "{not.null.year.message}")
 	private Integer year;
+
 	private String motor;
 	private String transmission;
+
+	@NotNull(message = "{not.null.price.message}")
 	private double price;
+
 	private String description;
 	private String image;
+
+	@NotNull(message = "{not.null.category.message}")
+	@Valid
 	private CategoryDTO category;
+
+	@NotNull(message = "{not.null.manufacturer.message}")
+	@Valid
 	private ManufacturerDTO manufacturer;
 
 	public VehicleDTO() {

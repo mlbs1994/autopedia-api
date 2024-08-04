@@ -1,10 +1,16 @@
 package com.autopedia.api.domain.manufacturer;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class ManufacturerDTO {
 
+	@NotNull(message = "{not.null.manufacturer.id.message}")
+	@Min(value = 1, message = "{min.value.manufacturer.id.message}")
 	private Integer id;
+
 	private String name;
-	
+
 	public ManufacturerDTO() {
 	}
 

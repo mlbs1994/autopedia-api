@@ -1,11 +1,17 @@
 package com.autopedia.api.domain.category;
 
+import jakarta.validation.constraints.*;
+
 public class CategoryDTO {
 
+	@NotNull(message = "{not.null.category.id.message}")
+	@Min(value = 1, message = "{min.value.category.id.message}")
 	private Integer id;
+
 	private String name;
+
 	private String description;
-	
+
 	public CategoryDTO() {
 	}
 

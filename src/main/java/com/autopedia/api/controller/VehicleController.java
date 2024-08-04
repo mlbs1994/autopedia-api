@@ -23,6 +23,8 @@ import com.autopedia.api.domain.vehicle.VehicleRepository;
 import com.autopedia.api.domain.vehicle.VehicleSummaryDTO;
 import com.autopedia.api.domain.vehicle.VehicleUpdateDTO;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/vehicles")
 public class VehicleController {
@@ -50,7 +52,7 @@ public class VehicleController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<VehicleDTO> add(@RequestBody VehicleDTO vehicleData, UriComponentsBuilder uriComponentBuilder) {
+	public ResponseEntity<VehicleDTO> add(@RequestBody @Valid VehicleDTO vehicleData, UriComponentsBuilder uriComponentBuilder) {
 		Vehicle vehicle = new Vehicle(vehicleData);
 		vehicleRepository.save(vehicle);
 		
@@ -61,7 +63,7 @@ public class VehicleController {
 	
 	@PutMapping
 	@Transactional
-	public ResponseEntity<VehicleDTO> update(@RequestBody VehicleUpdateDTO vehicleData) {
+	public ResponseEntity<VehicleDTO> update(@RequestBody @Valid VehicleUpdateDTO vehicleData) {
 		Vehicle vehicle = vehicleRepository.getReferenceById(vehicleData.getId());
 		vehicle.updateVehicle(vehicleData);
 		

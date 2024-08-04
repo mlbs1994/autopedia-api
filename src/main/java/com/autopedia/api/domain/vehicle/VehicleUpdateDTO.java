@@ -1,8 +1,12 @@
 package com.autopedia.api.domain.vehicle;
 
-public class VehicleUpdateDTO {
+import jakarta.validation.constraints.NotNull;
 
+public class VehicleUpdateDTO {
+	
+	@NotNull(message = "{not.null.vehicle.id.message}")
 	private Integer id;
+	
 	private String model;
 	private Double price;
 	private String description;
