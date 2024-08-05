@@ -5,6 +5,7 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,13 +40,13 @@ public class VehicleController {
 	}
 	
 	@GetMapping("summary")
-	public ResponseEntity<Page<VehicleSummaryDTO>> summaryList(Pageable pagination) {
+	public ResponseEntity<Page<VehicleSummaryDTO>> summaryList(@PageableDefault(size = 10, sort="model") Pageable pagination) {
 		Page<VehicleSummaryDTO> vehiclesSummarized = vehicleRepository.findAll(pagination).map(VehicleSummaryDTO::new);
 		return ResponseEntity.ok(vehiclesSummarized);
 	}
 	
 	@GetMapping("list")
-	public ResponseEntity<Page<VehicleDTO>> list(Pageable pagination) {
+	public ResponseEntity<Page<VehicleDTO>> list(@PageableDefault(size = 10, sort="model") Pageable pagination) {
 		Page<VehicleDTO> vehiclesList = vehicleRepository.findAll(pagination).map(VehicleDTO::new);
 		return ResponseEntity.ok(vehiclesList);		
 	}
