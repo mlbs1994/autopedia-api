@@ -1,4 +1,4 @@
-package com.autopedia.api.infra;
+package com.autopedia.api.infra.exception;
 
 import java.util.List;
 

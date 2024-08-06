@@ -1,4 +1,4 @@
-package com.autopedia.api.infra;
+package com.autopedia.api.infra.message;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

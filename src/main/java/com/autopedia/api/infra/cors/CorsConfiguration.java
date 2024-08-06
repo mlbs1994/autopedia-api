@@ -1,4 +1,4 @@
-package com.autopedia.api.infra;
+package com.autopedia.api.infra.cors;
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
