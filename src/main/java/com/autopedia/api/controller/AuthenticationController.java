@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autopedia.api.domain.user.AuthenticationDTO;
+import com.autopedia.api.infra.security.JWTTokenDTO;
+import com.autopedia.api.infra.security.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -21,12 +23,16 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationManager manager;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	@PostMapping
-	public ResponseEntity<Void> doLogin(@RequestBody @Valid AuthenticationDTO credentials) {
-		Authentication token = new UsernamePasswordAuthenticationToken(credentials.getLogin(), credentials.getPassword());
-		manager.authenticate(token);
+	public ResponseEntity<JWTTokenDTO> doLogin(@RequestBody @Valid AuthenticationDTO credentials) {
+		Authentication authentication = new UsernamePasswordAuthenticationToken(credentials.getLogin(), credentials.getPassword());
+		manager.authenticate(authentication);
+		String token = tokenService.generateToken((String) authentication.getPrincipal());
 		
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(new JWTTokenDTO(token));
 	}
 
 }
