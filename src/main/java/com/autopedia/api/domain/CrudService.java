@@ -1,14 +1,16 @@
 package com.autopedia.api.domain;
 
-import java.util.List;
+import java.util.function.Function;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public abstract class CrudService<T, ID, R extends JpaRepository<T, ID>> {
+public abstract class CrudService<T, ID> {
 
-    protected final R repository;
+    protected final JpaRepository<T, ID> repository;
 
-    public CrudService(R repository) {
+    public CrudService(JpaRepository<T, ID> repository) {
         this.repository = repository;
     }
 
@@ -20,8 +22,8 @@ public abstract class CrudService<T, ID, R extends JpaRepository<T, ID>> {
         return this.repository.findById(id).orElse(null); // use orElse(null) to avoid NoSuchElementException
     }
 
-    public List<T> findAll() {
-        return this.repository.findAll();
+    public Page<DTO> findAll(Pageable pageable, Function<T, DTO> converter) {
+        return this.repository.findAll(pageable).map(converter);
     }
 
     public void deleteById(ID id) {

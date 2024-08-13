@@ -1,6 +1,8 @@
 package com.autopedia.api.domain.vehicle;
 
-public class VehicleSummaryDTO {
+import com.autopedia.api.domain.DTO;
+
+public class VehicleSummaryDTO implements DTO {
 
 	private String model;
 	private String manufacturer;

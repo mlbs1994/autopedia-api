@@ -1,8 +1,10 @@
 package com.autopedia.api.domain.vehicle;
 
+import com.autopedia.api.domain.DTO;
+
 import jakarta.validation.constraints.NotNull;
 
-public class VehicleUpdateDTO {
+public class VehicleUpdateDTO implements DTO {
 	
 	@NotNull(message = "{not.null.vehicle.id.message}")
 	private Integer id;

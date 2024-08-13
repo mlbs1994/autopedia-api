@@ -1,12 +1,13 @@
 package com.autopedia.api.domain.vehicle;
 
+import com.autopedia.api.domain.DTO;
 import com.autopedia.api.domain.category.CategoryDTO;
 import com.autopedia.api.domain.manufacturer.ManufacturerDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
-public class VehicleDTO {
+public class VehicleDTO implements DTO{
 
 	private Integer id;
 

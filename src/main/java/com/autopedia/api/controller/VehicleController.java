@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.autopedia.api.domain.DTO;
 import com.autopedia.api.domain.vehicle.Vehicle;
 import com.autopedia.api.domain.vehicle.VehicleDTO;
 import com.autopedia.api.domain.vehicle.VehicleRepository;
+import com.autopedia.api.domain.vehicle.VehicleService;
 import com.autopedia.api.domain.vehicle.VehicleSummaryDTO;
 import com.autopedia.api.domain.vehicle.VehicleUpdateDTO;
 
@@ -31,23 +33,26 @@ import jakarta.validation.Valid;
 public class VehicleController {
 	
 	@Autowired
-	VehicleRepository vehicleRepository;
+	VehicleService vehicleService;
+	
+	@Autowired
+	VehicleRepository repo;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<VehicleDTO> detail(@PathVariable Integer id) {
-		Vehicle vehicle = vehicleRepository.getReferenceById(id);
+		Vehicle vehicle = repo.getReferenceById(id);
 		return ResponseEntity.ok(new VehicleDTO(vehicle));
 	}
 	
 	@GetMapping("summary")
-	public ResponseEntity<Page<VehicleSummaryDTO>> summaryList(@PageableDefault(size = 10, sort="model") Pageable pagination) {
-		Page<VehicleSummaryDTO> vehiclesSummarized = vehicleRepository.findAll(pagination).map(VehicleSummaryDTO::new);
+	public ResponseEntity<Page<DTO>> summaryList(@PageableDefault(size = 10, sort="model") Pageable pagination) {
+		Page<DTO> vehiclesSummarized = vehicleService.findAll(pagination, VehicleSummaryDTO::new);
 		return ResponseEntity.ok(vehiclesSummarized);
 	}
 	
 	@GetMapping("list")
-	public ResponseEntity<Page<VehicleDTO>> list(@PageableDefault(size = 10, sort="model") Pageable pagination) {
-		Page<VehicleDTO> vehiclesList = vehicleRepository.findAll(pagination).map(VehicleDTO::new);
+	public ResponseEntity<Page<DTO>> list(@PageableDefault(size = 10, sort="model") Pageable pagination) {
+		Page<DTO> vehiclesList = vehicleService.findAll(pagination, VehicleDTO::new);
 		return ResponseEntity.ok(vehiclesList);		
 	}
 	
@@ -55,7 +60,7 @@ public class VehicleController {
 	@Transactional
 	public ResponseEntity<VehicleDTO> add(@RequestBody @Valid VehicleDTO vehicleData, UriComponentsBuilder uriComponentBuilder) {
 		Vehicle vehicle = new Vehicle(vehicleData);
-		vehicleRepository.save(vehicle);
+		vehicleService.save(vehicle);
 		
 		URI uri = uriComponentBuilder.path("/vehicles/{id}").buildAndExpand(vehicle.getId()).toUri();
 		
@@ -65,7 +70,7 @@ public class VehicleController {
 	@PutMapping
 	@Transactional
 	public ResponseEntity<VehicleDTO> update(@RequestBody @Valid VehicleUpdateDTO vehicleData) {
-		Vehicle vehicle = vehicleRepository.getReferenceById(vehicleData.getId());
+		Vehicle vehicle = vehicleService.findById(vehicleData.getId());
 		vehicle.updateVehicle(vehicleData);
 		
 		return ResponseEntity.ok(new VehicleDTO(vehicle));
@@ -74,7 +79,7 @@ public class VehicleController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		vehicleRepository.deleteById(id);
+		vehicleService.deleteById(id);
 		
 		return ResponseEntity.noContent().build();
 	}
